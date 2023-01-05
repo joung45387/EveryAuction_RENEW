@@ -4,7 +4,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink- to-fit=no">
 <!-- Bootstrap CSS -->
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -26,10 +25,12 @@
         border-color: #bd2130;
         color:#bd2130;
     }
-</style> <body>
+</style>
+<body>
+<div >
 <div class="container">
-
-    <form role="form" action="/registration" method="post">
+    <div th:replace="/fragments/header.html :: fragment-header(${login})"></div>
+    <form role="form" action="/signup" method="post">
         <div class="form-group">
             <label>아이디</label>
             <input type="text" name="username" class="form-control"
