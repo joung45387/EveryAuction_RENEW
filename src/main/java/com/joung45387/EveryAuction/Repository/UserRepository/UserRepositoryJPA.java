@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
 @RequiredArgsConstructor
 public class UserRepositoryJPA implements UserRepository{
     private final EntityManager em;
-    private final UserRepositoryJpaRepository urjr;
+    private final UserRepositoryDataJPA userRepositoryDataJPA;
     @Override
     public User findByUserId() {
 
@@ -21,7 +21,7 @@ public class UserRepositoryJPA implements UserRepository{
 
     @Override
     public User findByUserName(String userName) {
-        User user = urjr.findByUsername(userName);
+        User user = userRepositoryDataJPA.findByUsername(userName);
         return user;
     }
 

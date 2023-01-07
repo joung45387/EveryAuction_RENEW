@@ -1,19 +1,19 @@
 package com.joung45387.EveryAuction.Domain.Model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
-@Setter
 @Getter
-public class User {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,10 +22,9 @@ public class User {
     private String password;
     private String name;
     private String phoneNumber;
-
+    private String address;
     private String role = "normal"; //normal, admin
     private String provider;
     @CreationTimestamp
     private Timestamp createTime;
-
 }

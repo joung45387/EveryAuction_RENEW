@@ -45,11 +45,13 @@ public class PrincipleOauth2UserService extends DefaultOAuth2UserService {
         String name = oAuth2UserInfo.getName();
         User user = userRepository.findByUserName(username);
         if(user == null){
-            user = new User();
-            user.setUsername(username);
-            user.setPassword(password);
-            user.setName(name);
-            user.setProvider(provider);
+            user = User
+                    .builder()
+                    .username(username)
+                    .password(password)
+                    .name(name)
+                    .provider(provider)
+                    .build();
             userRepository.saveUser(user);
         }
 

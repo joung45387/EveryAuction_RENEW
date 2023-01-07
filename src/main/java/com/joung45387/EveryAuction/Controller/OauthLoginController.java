@@ -15,7 +15,7 @@ public class OauthLoginController {
     private final UserRepository userRepository;
     @GetMapping("/oauthlogin")
     public String oauthLogin(@AuthenticationPrincipal PrincipalDetails principalDetails){
-        User user = userRepository.findByUserName(principalDetails.getUsername());
+        User user = principalDetails.getUser();//userRepository.findByUserName(principalDetails.getUsername());
         if(user.getPhoneNumber() == null){
             return "AdditionalInfoOauth";
         }

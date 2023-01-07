@@ -1,4 +1,4 @@
-package com.joung45387.EveryAuction.Security;
+package com.joung45387.EveryAuction.Configuration;
 
 import com.joung45387.EveryAuction.Security.Oauth.PrincipleOauth2UserService;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +27,8 @@ public class SecurityConfig {
         http.headers().frameOptions().sameOrigin();
         http
                 .authorizeHttpRequests()
-                .antMatchers("/per").authenticated()
-                .anyRequest().permitAll()
+                .antMatchers("/", "/signin", "/signup", "/css/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/signin")
