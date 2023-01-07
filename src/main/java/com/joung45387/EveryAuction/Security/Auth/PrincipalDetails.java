@@ -1,6 +1,7 @@
 package com.joung45387.EveryAuction.Security.Auth;
 
 import com.joung45387.EveryAuction.Domain.Model.User;
+import com.joung45387.EveryAuction.Security.Oauth.UserInfo.OAuth2UserInfo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -12,20 +13,20 @@ import java.util.Map;
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private User user;
-    private Map<String, Object> attributes;
+    private OAuth2UserInfo oAuth2UserInfo;
 
     public PrincipalDetails(User user) {
         this.user = user;
     }
 
-    public PrincipalDetails(User user, Map<String, Object> attributes) {
+    public PrincipalDetails(User user, OAuth2UserInfo oAuth2UserInfo) {
         this.user = user;
-        this.attributes = attributes;
+        this.oAuth2UserInfo = oAuth2UserInfo;
     }
 
     @Override
     public Map<String, Object> getAttributes() {
-        return attributes;
+        return oAuth2UserInfo.getAttributes();
     }
 
 

@@ -7,16 +7,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 @RequiredArgsConstructor
 public class OauthLoginController {
     private final UserRepository userRepository;
     @GetMapping("/oauthlogin")
-    public void oauthLogin(@AuthenticationPrincipal PrincipalDetails principalDetails){
-        User user = userRepository.findByUserName(principalDetails.getName());
-        if(user.getPhoneNumber().equals("")){
-            System.out.println("ddddd");
+    public String oauthLogin(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        User user = userRepository.findByUserName(principalDetails.getUsername());
+        if(user.getPhoneNumber() == null){
+            return "AdditionalInfoOauth";
         }
+        return "redirect:/";
     }
 }

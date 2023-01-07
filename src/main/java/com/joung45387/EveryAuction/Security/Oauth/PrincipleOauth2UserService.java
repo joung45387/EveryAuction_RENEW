@@ -3,6 +3,10 @@ package com.joung45387.EveryAuction.Security.Oauth;
 import com.joung45387.EveryAuction.Domain.Model.User;
 import com.joung45387.EveryAuction.Repository.UserRepository.UserRepository;
 import com.joung45387.EveryAuction.Security.Auth.PrincipalDetails;
+import com.joung45387.EveryAuction.Security.Oauth.UserInfo.GoogleUserInfo;
+import com.joung45387.EveryAuction.Security.Oauth.UserInfo.KakaoUserInfo;
+import com.joung45387.EveryAuction.Security.Oauth.UserInfo.NaverUserInfo;
+import com.joung45387.EveryAuction.Security.Oauth.UserInfo.OAuth2UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -22,11 +26,23 @@ public class PrincipleOauth2UserService extends DefaultOAuth2UserService {
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
-        String provider = userRequest.getClientRegistration().getClientId();
-        String providerId = oAuth2User.getAttribute("sub");
+        OAuth2UserInfo oAuth2UserInfo = null;
+        String provider = userRequest.getClientRegistration().getRegistrationId();
+
+        if(provider.equals("google")){
+            oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
+        }
+        else if(provider.equals("naver")){
+            oAuth2UserInfo = new NaverUserInfo(oAuth2User.getAttributes());
+        }
+        else if(provider.equals("kakao")){	//추가
+            oAuth2UserInfo = new KakaoUserInfo(oAuth2User.getAttributes());
+        }
+
+        String providerId = oAuth2UserInfo.getProviderId();
         String username = provider + "_"+ providerId;
         String password = bCryptPasswordEncoder.encode("every_auction");
-        String name = oAuth2User.getAttribute("name");
+        String name = oAuth2UserInfo.getName();
         User user = userRepository.findByUserName(username);
         if(user == null){
             user = new User();
@@ -37,6 +53,6 @@ public class PrincipleOauth2UserService extends DefaultOAuth2UserService {
             userRepository.saveUser(user);
         }
 
-        return new PrincipalDetails(user, oAuth2User.getAttributes());
+        return new PrincipalDetails(user, oAuth2UserInfo);
     }
 }
