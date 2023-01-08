@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userId;
     @Column(unique = true)
     private String username;
     private String password;

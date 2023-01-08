@@ -34,6 +34,6 @@ public class ItemUploadController {
                                      @RequestParam MultipartFile file) throws IOException {
         byte[] bytes = file.getBytes();
         Item item = itemRepository.saveItem(itemDTO, principalDetails.getUser(), bytes);
-        return "redirect:/item/"+item.getId();
+        return "redirect:/item/"+item.getItemId();
     }
 }

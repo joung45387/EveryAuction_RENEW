@@ -8,6 +8,9 @@ import org.springframework.web.multipart.MultipartFile;
 public interface ItemRepository {
     public Item saveItem(ItemDTO itemDTO, User user, byte[] file);
     public Item findByItemId(Long id);
+
+    public void updateItemPrice(Item item, int price, User bidUser);
+
     public Item findByItemSellerId(Long id);
 
 }

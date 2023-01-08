@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -13,7 +15,7 @@ import java.time.LocalDateTime;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long itemId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User seller;
@@ -29,4 +31,11 @@ public class Item {
     @ManyToOne(fetch = FetchType.LAZY)
     private User buyer;
 
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    private List<BidRecord> bidRecords = new ArrayList<>();
+
+    public void bidUpdate(int price, User bidUser){
+        currentPrice = price;
+        buyer = bidUser;
+    }
 }
