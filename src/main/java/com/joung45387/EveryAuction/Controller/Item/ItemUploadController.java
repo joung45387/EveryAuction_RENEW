@@ -21,9 +21,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ItemUploadController {
     private final ItemRepository itemRepository;
-    @GetMapping("/item/upload")
+    @GetMapping("/itemupload")
     public String SaleItemUpload(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model){
-        System.out.println(principalDetails.getUsername());
         return "ItemUpload";
     }
 
@@ -34,6 +33,6 @@ public class ItemUploadController {
                                      @RequestParam MultipartFile file) throws IOException {
         byte[] bytes = file.getBytes();
         Item item = itemRepository.saveItem(itemDTO, principalDetails.getUser(), bytes);
-        return "redirect:/item/"+item.getItemId();
+        return "redirect:/item/"+item.getId();
     }
 }

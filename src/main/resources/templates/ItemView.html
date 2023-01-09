@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="/js/countdown.js"></script>
+    <script src="/js/replyTime.js"></script>
     <script th:inline="javascript">
         /*<![CDATA[*/
         countDownTimer('lefttime', /*[[${item.endTime}]]*/);
@@ -27,12 +28,30 @@
         stompClient.connect({}, onConnected, onError);
         function onConnected() {
             console.log("sucess");
-            stompClient.subscribe('/sub/productId/[[${item.itemId}]]', function (e) {
-                document.getElementById('id[[${item.itemId}]]').innerText = "현재가: "+e.body;
+            stompClient.subscribe('/sub/productId/[[${item.id}]]', function (e) {
+                document.getElementById('id[[${item.id}]]').innerText = "현재가: "+e.body;
             });
         }
         function onError(error) {
             console.log("error");
+        }
+
+        /*]]>*/
+    </script>-->
+
+    <script>
+        function newModal(){
+            var newFrame = document.createElement("iframe");
+            newFrame.width="100%";
+            newFrame.height="100%";
+            /*<![CDATA[*/
+            const tmp = [[${item.id}]];
+            /*]]>*/
+            newFrame.src="/item/"+tmp+"/bidRecord";
+
+            newFrame.id="newFrame";
+            let nf = document.getElementById("newFrame");
+            nf.replaceWith(newFrame);
         }
         function show(id){
             if(document.getElementById("edit"+id).style.display === "block"){
@@ -42,8 +61,7 @@
                 document.getElementById("edit"+id).style.display="block";
             }
         }
-        /*]]>*/
-    </script>-->
+    </script>
 
 </head>
 
@@ -59,17 +77,17 @@
                     <div class="card" style = "position:fixed; width:30%; right:20px; top:20%">
                         <div class="card-body">
                             <h1 class="h2" th:text="${item.title}"></h1>
-                            <p class="h3 py-2" th:text="'현재가: '+${item.currentPrice}" th:id="'id'+${item.itemId}"></p>
+                            <p class="h3 py-2" th:text="'현재가: '+${item.currentPrice}" th:id="'id'+${item.id}"></p>
 
                             <ul class="list-inline">
                                 <li class="list-inline-item">
                                     <h6>남은 시간:</h6>
                                     <div id = "lefttime"></div>
                                 </li>
-                                <div class="fieldError" th:text="${errorInfo}"></div>-
+                                <div class="fieldError" th:text="${errorInfo}"></div>
                             </ul>
 
-                            <form th:if="${possible}" th:action="'/item/'+${item.itemId}+'/bid'"  method="post">
+                            <form th:if="${possible}" th:action="'/bid/item/'+${item.id}"  method="post">
                                 <div>
                                     <label >입찰</label>
                                     <input type="number" class="form-control mt-1" name="cost" id="price" placeholder="입찰할 가격을 입력하세요.">
@@ -83,7 +101,7 @@
                                 </div>
                             </form>
                             <div class="col d-grid">
-                                <button th:onclick="'test('+${item.itemId}+')'" class="btn btn-success btn-lg" name="submit">기록 확인</button>
+                                <button type="button" onclick="newModal()" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success btn-lg" name="submit">기록 확인</button>
                             </div>
                         </div>
                     </div>
@@ -106,35 +124,39 @@
                         <h1 class = "h1">replies</h1><p></p>
                         <hr>
 
-                        <!--<ul class="list-inline" style="text-align: left;" th:each="reply : ${replies}">
+                        <ul class="list-inline" style="text-align: left;" th:each="reply : ${replies}">
                             <li class="list-inline-item" style="padding-left: 5px; font-size: 120%">
-                                <h4><b th:text="${reply.getUserId()}">이름</b></h4>
+                                <h4><b th:text="${reply.getUser().getName()}">이름</b></h4>
                             </li>
                             <li class="list-inline-item">
                                 <p th:id="'reply'+${reply.getId()}" th:text="${reply.getUploadTime()}" class="text-muted" style="display:inline;"></p>
                             </li>
-                            //스크립트 넣는 공간
+                            <script>
+                                /*<![CDATA[*/
+                                var t = "reply"+[[${reply.getId}]];
+                                document.getElementById(t).innerText = timeForToday(document.getElementById(t).innerText);
+                                /*]]>*/
+                            </script>
                             <button class="btn btn-success btn-lg px-3" th:if="${mine[replyStat.index]}" th:onclick="'show('+${reply.id}+')'" style="float: right; width:13em; font-size: 5px; padding: 1px; text-align: center;">수정</button>
-                            <form th:if="${mine[replyStat.index]}" th:action="'/product/deletereply/'+${reply.id}+'/'+${item.id}" method="post" style="display: inline;">
+                            <form th:if="${mine[replyStat.index]}" th:action="'/delete/comment/'+${reply.getId()}+'/item/'+${item.id}" method="post" style="display: inline;">
                                 <button class="btn btn-success btn-lg px-3" type="submit" style="float: right; width:13em; font-size: 5px; padding: 1px; text-align: center;">삭제</button>
                             </form>
                             <li>
                                 <p style="padding-left: 10px;" th:text="${reply.getContent()}"></p>
                             </li>
-                            <form th:if="${mine[replyStat.index]}" th:action="'/product/editreply/'+${reply.id}+'/'+${item.id}"
+                            <form th:if="${mine[replyStat.index]}" th:action="'/edit/comment/'+${reply.id}+'/item/'+${item.id}"
                                   method="post" style="display: none;" th:id="'edit'+${reply.id}" >
                                 <input style="display:inline; width: 100%;" type="text" class="form-control mt-1" name="content" placeholder="여기에 댓글 입력.">
                                 <button class="btn btn-success btn-lg px-3" type="submit" style="display: inline; width:13em; font-size: 5px; padding: 1px; text-align: center; float: right">수정</button>
                             </form>
                             <hr>
                         </ul>
-                        <form th:action="'/product/'+${item
-                        .id}+'/productreply'" method="post">
+                        <form th:action="'/comment/item/'+${item.id}" method="post">
                             <div>
                                 <input style="display:inline-block; width: 85%;" type="text" class="form-control mt-1" id="reply" name="content" placeholder="여기에 댓글 입력.">
                                 <button type="submit" class="btn btn-success btn-lg px-3">입력</button>
                             </div>
-                        </form>-->
+                        </form>
                     </div>
                 </div>
             </div>
@@ -142,8 +164,22 @@
     </section>
     <!-- Close Content -->
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" style="width: 100%; height: 100%">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">경매 기록</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="frame" class="modal-body" style="height: 500px;">
+                <iframe id="newFrame"></iframe>
+            </div>
 
-<div class="container" id="te"></div>
+        </div>
+    </div>
+</div>
+
 </body>
 
 </html>

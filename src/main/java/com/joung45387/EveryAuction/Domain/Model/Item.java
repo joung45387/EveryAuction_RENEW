@@ -15,7 +15,7 @@ import java.util.List;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long itemId;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User seller;
@@ -33,6 +33,8 @@ public class Item {
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<BidRecord> bidRecords = new ArrayList<>();
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 
     public void bidUpdate(int price, User bidUser){
         currentPrice = price;

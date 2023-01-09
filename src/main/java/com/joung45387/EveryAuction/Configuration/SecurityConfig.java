@@ -27,17 +27,17 @@ public class SecurityConfig {
         http.headers().frameOptions().sameOrigin();
         http
                 .authorizeHttpRequests()
-                .antMatchers("/", "/signin", "/signup", "/css/**").permitAll()
+                .antMatchers("/", "/signin", "/signup", "/css/**", "/item/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/signin")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/", true)
                 .and()
                 .oauth2Login()
                 .loginPage("/signin")
-                .defaultSuccessUrl("/oauthlogin")
+                .defaultSuccessUrl("/oauthlogin", true)
                 .userInfoEndpoint()
                 .userService(principleOauth2UserService);
         return http.build();

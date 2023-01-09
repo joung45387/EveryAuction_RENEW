@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class BidRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long bidRecordId;
+    private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     private User bidUser;
     @ManyToOne(fetch = FetchType.LAZY)
