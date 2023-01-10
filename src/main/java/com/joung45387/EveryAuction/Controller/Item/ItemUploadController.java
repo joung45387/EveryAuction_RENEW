@@ -26,7 +26,7 @@ public class ItemUploadController {
         return "ItemUpload";
     }
 
-    @PostMapping("/item/upload")
+    @PostMapping("/itemupload")
     public String PostSaleItemUpload(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                      Model model,
                                      ItemDTO itemDTO,

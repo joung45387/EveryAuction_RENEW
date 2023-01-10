@@ -5,6 +5,8 @@ import com.joung45387.EveryAuction.Domain.Model.Item;
 import com.joung45387.EveryAuction.Domain.Model.User;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface ItemRepository {
     public Item saveItem(ItemDTO itemDTO, User user, byte[] file);
     public Item findByItemId(Long id);
@@ -13,4 +15,5 @@ public interface ItemRepository {
 
     public Item findByItemSellerId(Long id);
 
+    List<Item> findAll();
 }

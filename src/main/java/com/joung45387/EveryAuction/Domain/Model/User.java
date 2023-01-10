@@ -1,5 +1,6 @@
 package com.joung45387.EveryAuction.Domain.Model;
 
+import com.joung45387.EveryAuction.Domain.DTO.OAuthSignUpDTO;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,4 +28,10 @@ public class User implements Serializable {
     private String provider;
     @CreationTimestamp
     private Timestamp createTime;
+
+    public void updateOAuthUser(OAuthSignUpDTO oAuthSignUpDTO){
+        phoneNumber = oAuthSignUpDTO.getPhoneNumber();
+        name = oAuthSignUpDTO.getName();
+        address = oAuthSignUpDTO.getAddress();
+    }
 }

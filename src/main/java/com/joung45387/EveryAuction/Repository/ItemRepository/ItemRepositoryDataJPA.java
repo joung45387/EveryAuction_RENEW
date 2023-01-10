@@ -4,6 +4,9 @@ import com.joung45387.EveryAuction.Domain.Model.Item;
 import com.joung45387.EveryAuction.Domain.Model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface ItemRepositoryDataJPA extends JpaRepository<Item, Long> {
     public Item findBySeller(User seller);
+
 }

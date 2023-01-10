@@ -1,5 +1,6 @@
 package com.joung45387.EveryAuction.Repository.UserRepository;
 
+import com.joung45387.EveryAuction.Domain.DTO.OAuthSignUpDTO;
 import com.joung45387.EveryAuction.Domain.Model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -11,12 +12,18 @@ import javax.persistence.EntityManager;
 @Transactional
 @RequiredArgsConstructor
 public class UserRepositoryJPA implements UserRepository{
-    private final EntityManager em;
+    private final EntityManager entityManager;
     private final UserRepositoryDataJPA userRepositoryDataJPA;
     @Override
-    public User findByUserId() {
+    public User findByUserId(Long id) {
+        return entityManager.find(User.class, id);
+    }
 
-        return null;
+
+    @Override
+    public User updateOAuthUser(User user, OAuthSignUpDTO oAuthSignUpDTO){
+        user.updateOAuthUser(oAuthSignUpDTO);
+        return user;
     }
 
     @Override
@@ -27,7 +34,7 @@ public class UserRepositoryJPA implements UserRepository{
 
     @Override
     public void saveUser(User user) {
-        em.persist(user);
+        entityManager.persist(user);
     }
 
     @Override

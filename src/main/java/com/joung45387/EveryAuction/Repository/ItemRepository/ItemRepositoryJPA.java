@@ -8,8 +8,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -20,6 +22,7 @@ public class ItemRepositoryJPA implements ItemRepository{
 
     @Override
     public Item saveItem(ItemDTO itemDTO, User user, byte[] file) {
+        System.out.println("1111");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         Item item = Item.builder()
                 .title(itemDTO.getTitle())
@@ -48,5 +51,11 @@ public class ItemRepositoryJPA implements ItemRepository{
     @Override
     public Item findByItemSellerId(Long id) {
         return null;
+    }
+
+    @Override
+    public List<Item> findAll(){
+        TypedQuery<Item> query = entityManager.createQuery("select i from Item i", Item.class);
+        return query.getResultList();
     }
 }

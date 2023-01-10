@@ -11,9 +11,9 @@ public class signInController {
     @GetMapping("/signin")
     public String singIn(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model){
         if(principalDetails==null){
-            model.addAttribute("login", true);
             return "signin";
         }
+
         return "redirect:/";
     }
 }
