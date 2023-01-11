@@ -1,4 +1,4 @@
-package com.joung45387.EveryAuction.Controller;
+package com.joung45387.EveryAuction.Controller.User;
 
 import com.joung45387.EveryAuction.Security.Auth.PrincipalDetails;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

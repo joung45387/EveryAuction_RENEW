@@ -35,7 +35,7 @@ public class SecurityConfig {
         http.headers().frameOptions().sameOrigin();
         http
                 .authorizeHttpRequests()
-                .antMatchers("/", "/signin", "/signup", "/css/**", "/item/**").permitAll()
+                .antMatchers("/", "/signin", "/signup", "/css/**", "/item/**", "/js/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

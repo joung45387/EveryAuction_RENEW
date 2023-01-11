@@ -38,21 +38,9 @@
 
         /*]]>*/
     </script>-->
-
+    <script src="/js/bidRecordModal.js"></script>
     <script>
-        function newModal(){
-            var newFrame = document.createElement("iframe");
-            newFrame.width="100%";
-            newFrame.height="100%";
-            /*<![CDATA[*/
-            const tmp = [[${item.id}]];
-            /*]]>*/
-            newFrame.src="/item/"+tmp+"/bidRecord";
 
-            newFrame.id="newFrame";
-            let nf = document.getElementById("newFrame");
-            nf.replaceWith(newFrame);
-        }
         function show(id){
             if(document.getElementById("edit"+id).style.display === "block"){
                 document.getElementById("edit"+id).style.display="none";
@@ -101,7 +89,8 @@
                                 </div>
                             </form>
                             <div class="col d-grid">
-                                <button type="button" onclick="newModal()" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success btn-lg" name="submit">기록 확인</button>
+                                <button type="button" th:myName="${item.id}"
+                                        th:onclick="newModal(this.getAttribute('myName'))" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success btn-lg" name="submit">기록 확인</button>
                             </div>
                         </div>
                     </div>

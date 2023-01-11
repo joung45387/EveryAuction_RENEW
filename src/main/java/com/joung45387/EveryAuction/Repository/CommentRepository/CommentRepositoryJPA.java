@@ -32,7 +32,9 @@ public class CommentRepositoryJPA implements CommentRepository{
 
     @Override
     public List<Comment> findByItem(Item item) {
-        List<Comment> items = commentRepositoryDataJPA.findByItem(item);
+        List<Comment> items = entityManager.createQuery("select c from Comment c join fetch c.user where c.item = :item", Comment.class)
+                .setParameter("item", item)
+                .getResultList();
         return items;
     }
 

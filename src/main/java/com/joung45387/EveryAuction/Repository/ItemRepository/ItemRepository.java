@@ -10,10 +10,11 @@ import java.util.List;
 public interface ItemRepository {
     public Item saveItem(ItemDTO itemDTO, User user, byte[] file);
     public Item findByItemId(Long id);
+    public Item findAllByItemId(Long id);
 
     public void updateItemPrice(Item item, int price, User bidUser);
 
-    public Item findByItemSellerId(Long id);
+    public List<Item> findByItemSellerId(User user);
 
     List<Item> findAll();
 }

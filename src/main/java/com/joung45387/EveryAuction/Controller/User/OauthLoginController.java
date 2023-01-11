@@ -1,4 +1,4 @@
-package com.joung45387.EveryAuction.Controller;
+package com.joung45387.EveryAuction.Controller.User;
 
 import com.joung45387.EveryAuction.Domain.DTO.OAuthSignUpDTO;
 import com.joung45387.EveryAuction.Domain.Model.User;

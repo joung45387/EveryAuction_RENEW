@@ -1,6 +1,7 @@
 package com.joung45387.EveryAuction.Repository.BidRecordRepository;
 
 import com.joung45387.EveryAuction.Domain.DTO.ItemDTO;
+import com.joung45387.EveryAuction.Domain.DTO.PurchaseInfoDTO;
 import com.joung45387.EveryAuction.Domain.Model.BidRecord;
 import com.joung45387.EveryAuction.Domain.Model.Item;
 import com.joung45387.EveryAuction.Domain.Model.User;
@@ -14,4 +15,8 @@ public interface BidRecordRepository {
     List<BidRecord> findByItem(Item item);
 
     BidRecord findById(Long id);
+
+    List<PurchaseInfoDTO> myPurchase(Long id);
+
+    List<Item> mySales(Long id);
 }

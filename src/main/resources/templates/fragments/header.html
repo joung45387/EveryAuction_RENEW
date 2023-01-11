@@ -31,21 +31,22 @@
       </a>
       <ul class="nav nav-pills align-self-center fs-4">
         <li class="nav-item"><a href="/itemupload" class="nav-link active" aria-current="page">상품 업로드</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
+        <li class="nav-item"><a href="/purchaserecord" class="nav-link">구매목록</a></li>
+        <li class="nav-item"><a href="/salesrecord" class="nav-link">판매목록</a></li>
         <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
         <li class="nav-item">
-          <a th:if="${login}" href="/logout" class="nav-link">
+          <a th:if="${login}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> <!--href="/logout"-->
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
               <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
             </svg>
           </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+            <li><a class="dropdown-item" href="/myinfo">내 정보</a></li>
+          </ul>
           <a th:unless="${login}" href="/signin" class="nav-link">
-           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-             <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-            </svg>
+            <button class="btn" style="color: #01d28e">로그인</button>
           </a>
         </li>
       </ul>
