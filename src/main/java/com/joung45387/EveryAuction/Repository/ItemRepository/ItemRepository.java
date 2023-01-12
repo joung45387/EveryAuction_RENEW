@@ -12,6 +12,8 @@ public interface ItemRepository {
     public Item findByItemId(Long id);
     public Item findAllByItemId(Long id);
 
+    Item findSellerAndBuyerByItemId(Long id);
+
     public void updateItemPrice(Item item, int price, User bidUser);
 
     public List<Item> findByItemSellerId(User user);

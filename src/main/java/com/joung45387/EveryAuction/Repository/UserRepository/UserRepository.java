@@ -6,6 +6,7 @@ import com.joung45387.EveryAuction.Domain.Model.User;
 public interface UserRepository {
 
     User findByUserId(Long id);
+    User findByName(String name);
 
     User updateOAuthUser(User user, OAuthSignUpDTO oAuthSignUpDTO);
 

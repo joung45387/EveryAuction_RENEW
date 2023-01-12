@@ -20,12 +20,12 @@ public class RedisConfig {
         return new LettuceConnectionFactory("20.200.217.173", 6379);
     }
 
-    /*@Bean
-    public RedisTemplate<?, ?> redisTemplate() {
-        RedisTemplate<?, ?> redisTemplate = new RedisTemplate<>();
+    @Bean
+    public RedisTemplate<String, Object> redisTemplate() {
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(User.class));
+        redisTemplate.setValueSerializer(new StringRedisSerializer());
         return redisTemplate;
-    }*/
+    }
 }

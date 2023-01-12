@@ -19,6 +19,11 @@ public class UserRepositoryJPA implements UserRepository{
         return entityManager.find(User.class, id);
     }
 
+    @Override
+    public User findByName(String name) {
+        return userRepositoryDataJPA.findByName(name);
+    }
+
 
     @Override
     public User updateOAuthUser(User user, OAuthSignUpDTO oAuthSignUpDTO){

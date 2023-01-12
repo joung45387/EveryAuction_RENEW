@@ -52,6 +52,14 @@ public class ItemRepositoryJPA implements ItemRepository{
     }
 
     @Override
+    public Item findSellerAndBuyerByItemId(Long id) {
+        Item item = entityManager.createQuery("select i from Item i join fetch i.seller  join fetch i.buyer where i.id=:id", Item.class)
+                .setParameter("id", id)
+                .getSingleResult();
+        return item;
+    }
+
+    @Override
     public void updateItemPrice(Item item, int price, User bidUser) {
         item.bidUpdate(price, bidUser);
     }

@@ -13,19 +13,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Comment {
+public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
+    private User sender;
+    @ManyToOne(fetch = FetchType.LAZY)
     private Item item;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private User user;
-    private String content;
-    private LocalDateTime uploadTime;
-
-    public void updateContent(String content){
-        this.content = content;
-    }
+    private String text;
+    private LocalDateTime chatTime;
 }
