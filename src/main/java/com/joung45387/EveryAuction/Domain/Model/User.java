@@ -25,6 +25,7 @@ public class User implements Serializable {
     private String name;
     private String phoneNumber;
     private String address;
+    @Builder.Default
     private String role = "normal"; //normal, admin
     private String provider;
     @CreationTimestamp

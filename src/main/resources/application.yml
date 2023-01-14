@@ -16,7 +16,7 @@ spring:
         format_sql: true
 
   redis:
-    host: 20.200.217.173
+    host: 20.214.185.224
     port: 6379
 
   session:
@@ -75,3 +75,4 @@ server:
   servlet:
     session:
       tracking-modes: cookie
+  port: 80

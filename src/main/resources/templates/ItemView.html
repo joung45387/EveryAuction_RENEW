@@ -21,14 +21,14 @@
     <!--<script src="/modal.js"></script>
     <script src="/replyTime.js"></script>-->
 
-    <!--<script th:inline="javascript">
+    <script th:inline="javascript">
         /*<![CDATA[*/
         var socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, onConnected, onError);
         function onConnected() {
             console.log("sucess");
-            stompClient.subscribe('/sub/productId/[[${item.id}]]', function (e) {
+            stompClient.subscribe('/sub/itemPrice/[[${item.id}]]', function (e) {
                 document.getElementById('id[[${item.id}]]').innerText = "현재가: "+e.body;
             });
         }
@@ -37,7 +37,7 @@
         }
 
         /*]]>*/
-    </script>-->
+    </script>
     <script src="/js/bidRecordModal.js"></script>
     <script>
 

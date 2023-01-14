@@ -31,8 +31,10 @@ public class Item {
     @ManyToOne(fetch = FetchType.LAZY)
     private User buyer;
 
+    @Builder.Default
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<BidRecord> bidRecords = new ArrayList<>();
+    @Builder.Default
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 

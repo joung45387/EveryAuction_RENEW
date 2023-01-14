@@ -30,7 +30,7 @@
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" th:myName="${item.id}"
                                                 th:onclick="newModal(this.getAttribute('myName'))">입찰기록</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal2" th:myName="${item.id}"
+                                        <button th:if="${item.getBuyer_id().equals(myId)}" type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal2" th:myName="${item.id}"
                                                 th:onclick="newModal2(this.getAttribute('myName'))">채팅</button>
                                     </div>
                                 </a>

@@ -4,19 +4,17 @@ import com.joung45387.EveryAuction.Domain.DTO.ChatDTO;
 import com.joung45387.EveryAuction.Domain.Model.Chat;
 import com.joung45387.EveryAuction.Repository.ChatRepository.ChatRepository;
 import com.joung45387.EveryAuction.Security.Auth.PrincipalDetails;
+import com.joung45387.EveryAuction.Service.Redis.RedisPubService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -24,6 +22,7 @@ import java.util.List;
 public class ChatController {
     private final ChatRepository chatRepository;
     private final SimpMessageSendingOperations simpMessageSendingOperations;
+    private final RedisPubService redisPubService;
     @GetMapping("/chat/{productId}")
     public String SearchbidComplete(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                     Model model,
@@ -41,9 +40,10 @@ public class ChatController {
         Chat chat = chatRepository.saveChat(chatDTO, id);
         ChatDTO socketDTO = new ChatDTO();
         socketDTO.setSender(chat.getSender().getName());
+        socketDTO.setItemId(id);
         socketDTO.setText(chat.getText());
         socketDTO.setTime(chat.getChatTime());
-        simpMessageSendingOperations.convertAndSend("/sub/itemChat/"+id, socketDTO);
+        redisPubService.sendPrice(socketDTO);
     }
 
 

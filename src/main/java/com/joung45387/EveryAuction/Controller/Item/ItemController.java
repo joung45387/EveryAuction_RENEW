@@ -1,15 +1,16 @@
 package com.joung45387.EveryAuction.Controller.Item;
 
-import com.joung45387.EveryAuction.Domain.Model.Comment;
+import com.joung45387.EveryAuction.Domain.DTO.SimpleMessageDTO;
 import com.joung45387.EveryAuction.Domain.Model.Item;
-import com.joung45387.EveryAuction.Domain.Model.User;
 import com.joung45387.EveryAuction.Repository.BidRecordRepository.BidRecordRepository;
 import com.joung45387.EveryAuction.Repository.CommentRepository.CommentRepository;
 import com.joung45387.EveryAuction.Repository.ItemRepository.ItemRepository;
 import com.joung45387.EveryAuction.Security.Auth.PrincipalDetails;
 import com.joung45387.EveryAuction.Service.ItemService;
+import com.joung45387.EveryAuction.Service.Redis.RedisPubService;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,6 +28,7 @@ public class ItemController {
     private final ItemService itemService;
     private final BidRecordRepository bidRecordRepository;
     private final CommentRepository commentRepository;
+    private final RedisPubService redisPubService;
 
     @GetMapping("/item/{id}")
     public String saleItemUpload(@PathVariable("id") Long id,
@@ -61,6 +61,19 @@ public class ItemController {
         }
         itemRepository.updateItemPrice(item, Integer.parseInt(cost), principalDetails.getUser());
         bidRecordRepository.saveBidRecord(principalDetails.getUser(), item, Integer.parseInt(cost));
+
+
+        SimpleMessageDTO simpleMessageDTO = new SimpleMessageDTO();
+        simpleMessageDTO.setId(id);
+        simpleMessageDTO.setText(cost);
+        redisPubService.sendPrice(simpleMessageDTO);
         return "redirect:/item/"+id;
     }
+
+    @MessageMapping("/itemPrice/{id}")
+    public void chat(String price, @DestinationVariable("id") Long id){
+
+    }
+
+
 }
