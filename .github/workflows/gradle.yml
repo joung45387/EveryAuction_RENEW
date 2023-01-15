@@ -20,7 +20,7 @@ jobs:
 
       - name: Copy Secret
         env:
-         OCCUPY_SECRET: ${{ APPLICATION_SECRET }}
+         OCCUPY_SECRET: ${{ secrets.APPLICATION_SECRET }}
          OCCUPY_SECRET_DIR: src/main/resources
          OCCUPY_SECRET_DIR_FILE_NAME: application-secret.yml
         run: echo $OCCUPY_SECRET | base64 --decode > $OCCUPY_SECRET_DIR/$OCCUPY_SECRET_DIR_FILE_NAME
