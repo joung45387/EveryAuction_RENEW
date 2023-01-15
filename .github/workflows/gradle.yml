@@ -25,7 +25,7 @@ jobs:
         run: ./gradlew build
 
       - name: 도커 이미지 빌드 # (2)
-        run: docker build ./ <joung45387>/<everyauction> .
+        run: docker build -t joung45387/everyauction
 
       - name: Docker Hub 로그인 # (3)
         uses: docker/login-action@v2
@@ -34,4 +34,4 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Docker Hub 퍼블리시 # (4)
-        run: docker push <joung45387>/<everyauction>
+        run: docker push joung45387/everyauction
