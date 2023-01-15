@@ -18,6 +18,9 @@ jobs:
       - name: 저장소 Checkout
         uses: actions/checkout@v3
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
       - name: 스프링부트 애플리케이션 빌드 # (1)
         run: ./gradlew build
 
