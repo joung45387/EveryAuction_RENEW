@@ -9,7 +9,7 @@ name: EveryAuction CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   deploy:
