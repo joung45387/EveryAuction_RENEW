@@ -40,7 +40,7 @@ jobs:
         with:
           host: ${{ secrets.WAS_HOST }}
           username: ${{ secrets.WAS_USERNAME }}
-          password: ${{ secrets.WAS_PASSWORD }}
+          key: ${{ secrets.WAS_PASSWORD }}
           port: 22
           script: |
             docker stop $(docker ps -a -q) 
