@@ -35,3 +35,15 @@ jobs:
 
       - name: Docker Hub 퍼블리시 # (4)
         run: docker push joung45387/everyauction
+      - name: WAS 인스턴스 접속 및 애플리케이션 실행 # (5)
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.WAS_HOST }}
+          username: ${{ secrets.WAS_USERNAME }}
+          password: ${{ secrets.WAS_PASSWORD }}
+          port: 22
+          script: |
+            docker stop $(docker ps -a -q) 
+            docker rm $(docker ps -a -q) 
+            docker pull joung45387/everyauction
+            docker run -d -p 80:80 --name everyauction joung45387/everyauction
