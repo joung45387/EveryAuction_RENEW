@@ -53,4 +53,4 @@ jobs:
             sudo docker stop everyauction
             sudo docker rm everyauction
             sudo docker pull joung45387/everyauction
-            sudo docker run -d -p 80:80 --name everyauction joung45387/everyauction
+            sudo docker run -d -p 8080:8080 --name everyauction joung45387/everyauction

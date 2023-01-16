@@ -10,4 +10,4 @@ server:
   servlet:
     session:
       tracking-modes: cookie
-  port: 80
+  port: 8080
