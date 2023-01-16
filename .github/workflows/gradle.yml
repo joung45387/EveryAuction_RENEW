@@ -25,8 +25,6 @@ jobs:
          OCCUPY_SECRET_DIR_FILE_NAME: application-secret.yml
         run: echo $OCCUPY_SECRET | base64 --decode > $OCCUPY_SECRET_DIR/$OCCUPY_SECRET_DIR_FILE_NAME
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
 
       - name: 스프링부트 애플리케이션 빌드 # (1)
         run: ./gradlew build
@@ -54,6 +52,9 @@ jobs:
             sudo docker rm everyauction
             sudo docker pull joung45387/everyauction
             sudo docker run -d -p 8080:8080 --name everyauction joung45387/everyauction
+
+      - name: Grant execute permission for delay.sh
+        run: chmod +x ./delay.sh
       - name: 서버 부팅까지 대기 # (2)
         run: ./delay.sh
         shell: bash
