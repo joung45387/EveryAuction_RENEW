@@ -55,4 +55,5 @@ jobs:
             sudo docker pull joung45387/everyauction
             sudo docker run -d -p 8080:8080 --name everyauction joung45387/everyauction
       - name: 서버 부팅까지 대기 # (2)
-        run: sh ./delay.sh
+        run: ./delay.sh
+        shell: bash
