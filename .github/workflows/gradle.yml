@@ -55,6 +55,22 @@ jobs:
             sudo docker pull joung45387/everyauction
             sudo docker run -d -p 8080:8080 --name everyauction joung45387/everyauction
 
+      - name: Copy Secret2
+        env:
+          OCCUPY_SECRET: ${{ secrets.APPLICATION_SECRET2 }}
+          OCCUPY_SECRET_DIR: src/main/resources
+          OCCUPY_SECRET_DIR_FILE_NAME: application-secret.yml
+        run: echo $OCCUPY_SECRET | base64 --decode > $OCCUPY_SECRET_DIR/$OCCUPY_SECRET_DIR_FILE_NAME
+
+      - name: 스프링부트 애플리케이션 빌드2
+        run: ./gradlew build
+
+      - name: 도커 이미지 빌드2
+        run: docker build -t joung45387/everyauction2 .
+
+      - name: Docker Hub 퍼블리시2
+        run: docker push joung45387/everyauction2
+
       - name: Grant execute permission for delay.sh
         run: chmod +x ./delay.sh
       - name: 서버 부팅까지 대기
@@ -69,7 +85,7 @@ jobs:
           key: ${{ secrets.WAS_PASSWORD }}
           port: 22
           script: |
-            sudo docker stop everyauction
-            sudo docker rm everyauction
-            sudo docker pull joung45387/everyauction
-            sudo docker run -d -p 8081:8081 --name everyauction joung45387/everyauction
+            sudo docker stop everyauction2
+            sudo docker rm everyauction2
+            sudo docker pull joung45387/everyauction2
+            sudo docker run -d -p 8081:8081 --name everyauction2 joung45387/everyauction2
