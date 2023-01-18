@@ -8,9 +8,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface ItemRepository {
-    public Item saveItem(ItemDTO itemDTO, User user, byte[] file);
+    public Item saveItem(ItemDTO itemDTO, User user, String thumnailImageLink);
     public Item findByItemId(Long id);
-    public Item findAllByItemId(Long id);
+
+    Item findImageAndItemByItemId(Long id);
 
     Item findSellerAndBuyerByItemId(Long id);
 

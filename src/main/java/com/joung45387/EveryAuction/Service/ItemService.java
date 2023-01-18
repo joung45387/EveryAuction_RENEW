@@ -19,8 +19,8 @@ import java.util.stream.Collectors;
 public class ItemService {
     private final CommentRepository commentRepository;
     public Model setItemModel(Model model, Item item, User user){
-        byte[] encoded = Base64.encodeBase64((byte[]) item.getItemPhoto());
-        String encodedString= new String(encoded);
+        //byte[] encoded = Base64.encodeBase64((byte[]) item.getItemPhoto());
+        //String encodedString= new String(encoded);
         List<Comment> comments = commentRepository.findByItem(item);
         String userName;
         if(user == null){
@@ -30,7 +30,7 @@ public class ItemService {
         }
         List<Boolean> collect = comments.stream().map(c -> c.getUser().getUsername().equals(userName)).collect(Collectors.toList());
         model.addAttribute("item", item);
-        model.addAttribute("photo", encodedString);
+        //model.addAttribute("photo", encodedString);
         model.addAttribute("possible", item.getEndTime().isAfter(LocalDateTime.now(ZoneId.of("Asia/Seoul"))));
         model.addAttribute("replies", comments);
         model.addAttribute("mine", collect);

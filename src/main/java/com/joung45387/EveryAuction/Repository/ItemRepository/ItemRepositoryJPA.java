@@ -21,15 +21,15 @@ public class ItemRepositoryJPA implements ItemRepository{
     private final EntityManager entityManager;
 
     @Override
-    public Item saveItem(ItemDTO itemDTO, User user, byte[] file) {
+    public Item saveItem(ItemDTO itemDTO, User user, String thumnailImageLink) {
         System.out.println("1111");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         Item item = Item.builder()
                 .title(itemDTO.getTitle())
                 .endTime(LocalDateTime.parse(itemDTO.getEndTime(), formatter))
+                .thumbnailImage(thumnailImageLink)
                 .startPrice(itemDTO.getStartPrice())
                 .currentPrice(itemDTO.getStartPrice())
-                .itemPhoto(file)
                 .itemInformation(itemDTO.getContent())
                 .seller(user)
                 .build();
@@ -44,8 +44,8 @@ public class ItemRepositoryJPA implements ItemRepository{
     }
 
     @Override
-    public Item findAllByItemId(Long id) {
-        Item item = entityManager.createQuery("select i from Item i join fetch i.comments c join fetch c.user where i.id=:id", Item.class)
+    public Item findImageAndItemByItemId(Long id) {
+        Item item = entityManager.createQuery("select i from Item i join fetch i.itemImages where i.id=:id", Item.class)
                 .setParameter("id", id)
                 .getSingleResult();
         return item;

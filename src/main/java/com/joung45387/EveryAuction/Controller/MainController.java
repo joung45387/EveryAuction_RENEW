@@ -23,9 +23,7 @@ public class MainController {
     @GetMapping("/")
     public String oauthLogin(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model){
         List<Item> items = itemRepository.findAll();
-        List<String> photos = items.stream().map(img -> new String(Base64.encodeBase64((byte[]) img.getItemPhoto()))).collect(Collectors.toList());
         model.addAttribute("items", items);
-        model.addAttribute("photos", photos);
         return "main";
     }
 }

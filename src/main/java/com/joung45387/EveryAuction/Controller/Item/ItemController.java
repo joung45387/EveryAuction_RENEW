@@ -34,7 +34,7 @@ public class ItemController {
     public String saleItemUpload(@PathVariable("id") Long id,
                                  @AuthenticationPrincipal PrincipalDetails principalDetails,
                                  Model model){
-        Item item = itemRepository.findByItemId(id);
+        Item item = itemRepository.findImageAndItemByItemId(id);
         boolean login = (boolean) model.getAttribute("login");
         model = login? itemService.setItemModel(model, item, principalDetails.getUser()):itemService.setItemModel(model, item,null);
         return "ItemView";

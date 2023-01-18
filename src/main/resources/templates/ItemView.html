@@ -108,7 +108,9 @@
                     <div class="col-md-6 m-auto" style="text-align: center; width: 100%;" >
                     <h1 class = "h1">Photo</h1><p></p>
                         <hr>
-                        <img th:src="'data:image/png;base64,'+${photo}" style = "width:100%; left:20px">
+                        <div th:each="image : ${item.getItemImages()}">
+                            <img th:src="${image.getImageLink()}" style = "width:100%; left:20px">
+                        </div>
                         <hr>
                         <h1 class = "h1">replies</h1><p></p>
                         <hr>

@@ -21,9 +21,9 @@ public class Item {
     private User seller;
 
     private int startPrice;
-    @Lob
-    @Column(columnDefinition = "MEDIUMBLOB")
-    private byte[] itemPhoto;
+    private String thumbnailImage;
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    private List<Image> itemImages;
     private String itemInformation;
     private String title;
     private LocalDateTime endTime;

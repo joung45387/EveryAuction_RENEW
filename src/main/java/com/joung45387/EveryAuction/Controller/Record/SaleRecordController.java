@@ -22,8 +22,8 @@ public class SaleRecordController {
     public String salesRecord(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model){
         List<Item> items = bidRecordRepository.mySales(principalDetails.getUser().getId());
         model.addAttribute("items", items);
-        List<String> collect = items.stream().map(o -> new String(Base64.encodeBase64(o.getItemPhoto()))).collect(Collectors.toList());
-        model.addAttribute("photos", collect);
+        //List<String> collect = items.stream().map(o -> new String(Base64.encodeBase64(o.getItemPhoto()))).collect(Collectors.toList());
+        //model.addAttribute("photos", collect);
         model.addAttribute("myId", principalDetails.getUser().getId());
         return "salesrecord";
     }
