@@ -7,6 +7,7 @@ import com.joung45387.EveryAuction.Repository.UserRepository.UserRepository;
 import com.joung45387.EveryAuction.Security.Auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +21,13 @@ import java.util.stream.Collectors;
 public class MainController {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
+    @Value("${myInfo.serverName}")
+    private String servername;
     @GetMapping("/")
     public String oauthLogin(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model){
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
+        model.addAttribute("serverName", servername);
         return "main";
     }
 }
