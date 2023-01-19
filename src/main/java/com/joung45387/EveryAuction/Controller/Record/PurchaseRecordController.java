@@ -23,8 +23,6 @@ public class PurchaseRecordController {
     public String purchaseRecord(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model){
         List<PurchaseInfoDTO> infos = bidRecordRepository.myPurchase(principalDetails.getUser().getId());
         model.addAttribute("items", infos);
-        List<String> collect = infos.stream().map(o -> new String(Base64.encodeBase64(o.getItem_photo()))).collect(Collectors.toList());
-        model.addAttribute("photos", collect);
         model.addAttribute("myId", principalDetails.getUser().getId());
         return "purchaseRecord";
     }

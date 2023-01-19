@@ -22,7 +22,7 @@
                     <a th:href="'/item/'+${item.id}" style="text-decoration : none;">
                         <div class="card shadow-sm">
                             <div style="height: 200px; overflow: hidden;">
-                                <img th:src="'data:image/png;base64,'+${photos[itemStat.index]}"  class="card-img-top" >
+                                <img th:src="${item.getThumbnailImage()}"  class="card-img-top" >
                             </div>
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">

@@ -63,8 +63,8 @@ public class BidRecordRepositoryJPA implements BidRecordRepository{
                 (int) o[1],
                 ((Timestamp) o[2]).toLocalDateTime(),
                 (String) o[3],
-                (byte[]) o[4],
-                (int) o[5],
+                (int) o[4],
+                (String) o[5],
                 (String) o[6],
                 ((BigInteger) o[7]).longValue(),
                 ((BigInteger) o[8]).longValue()

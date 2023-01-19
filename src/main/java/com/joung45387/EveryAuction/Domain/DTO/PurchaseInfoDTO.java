@@ -14,8 +14,8 @@ public class PurchaseInfoDTO {
     int current_price;
     LocalDateTime end_time;
     String item_information;
-    byte[] item_photo;
     int start_price;
+    String thumbnail;
     String title;
     Long buyer_id;
     Long seller_id;
