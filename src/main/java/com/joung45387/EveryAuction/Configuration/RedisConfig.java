@@ -47,7 +47,7 @@ public class RedisConfig {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.addMessageListener(listenerAdapter, channelTopic);
-        container.addMessageListener(new RedisPriceSubscriber(simpMessageSendingOperations), new ChannelTopic("price"));
+        //container.addMessageListener(new RedisPriceSubscriber(simpMessageSendingOperations), new ChannelTopic("price"));
         return container;
     }
 

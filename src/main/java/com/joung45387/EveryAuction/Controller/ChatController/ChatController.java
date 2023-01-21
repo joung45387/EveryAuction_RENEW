@@ -43,7 +43,8 @@ public class ChatController {
         socketDTO.setItemId(id);
         socketDTO.setText(chat.getText());
         socketDTO.setTime(chat.getChatTime());
-        redisPubService.sendPrice(socketDTO);
+        //redisPubService.sendPrice(socketDTO);
+        simpMessageSendingOperations.convertAndSend("/topic/"+id, socketDTO);
     }
 
 

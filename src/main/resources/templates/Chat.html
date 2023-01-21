@@ -16,7 +16,7 @@
         stompClient.connect({}, onConnected, onError);
         function onConnected() {
             console.log("sucess");
-            stompClient.subscribe('/sub/itemChat/[[${productId}]]', function (e) {
+            stompClient.subscribe('/topic/[[${productId}]]', function (e) {
                 console.log(JSON.parse(e.body).text);
                 var ne = document.createElement("div");
                 var chatbox = document.getElementById("chatbox");

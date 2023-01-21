@@ -21,6 +21,7 @@ public class RedisSubscriber implements MessageListener {
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
+        System.out.println("메시지 받음");
         GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
         ChatDTO chatMessage = (ChatDTO)genericJackson2JsonRedisSerializer.deserialize(message.getBody());
         simpMessageSendingOperations.convertAndSend("/sub/itemChat/"+chatMessage.getItemId(), chatMessage);

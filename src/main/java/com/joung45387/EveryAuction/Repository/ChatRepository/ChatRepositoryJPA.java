@@ -32,7 +32,7 @@ public class ChatRepositoryJPA implements ChatRepository{
     @Override
     public List<Chat> findByItemOneQuery(Long itemId){
         Item item = itemRepository.findByItemId(itemId);
-        List<Chat> chats = entityManager.createQuery("select c from Chat c join fetch c.sender where c.item = :item order by c.chatTime", Chat.class)
+        List<Chat> chats = entityManager.createQuery("select c from Chat c join fetch c.sender where c.item = :item order by c.id", Chat.class)
                 .setParameter("item", item)
                 .getResultList();
         return chats;
