@@ -35,21 +35,21 @@ public class PrincipleOauth2UserService extends DefaultOAuth2UserService {
         else if(provider.equals("naver")){
             oAuth2UserInfo = new NaverUserInfo(oAuth2User.getAttributes());
         }
-        else if(provider.equals("kakao")){	//추가
+        else if(provider.equals("kakao")){
             oAuth2UserInfo = new KakaoUserInfo(oAuth2User.getAttributes());
         }
 
         String providerId = oAuth2UserInfo.getProviderId();
         String username = provider + "_"+ providerId;
         String password = bCryptPasswordEncoder.encode("every_auction");
-        String name = oAuth2UserInfo.getName();
+        //String name = oAuth2UserInfo.getName();
         User user = userRepository.findByUserName(username);
         if(user == null){
             user = User
                     .builder()
                     .username(username)
                     .password(password)
-                    .name(name)
+                    //.name(name)
                     .provider(provider)
                     .build();
             userRepository.saveUser(user);
