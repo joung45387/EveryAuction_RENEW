@@ -16,7 +16,7 @@
 <body>
 <div >
   <div class="container">
-    <div th:replace="fragments/header.html :: fragment-header(${login})"></div>
+    <div th:replace="fragments/header.html :: fragment-header(${login}, ${serverName})"></div>
     <h4>추가 정보를 입력하고 가입을 완료하세요!</h4>
     <form role="form" action="/oauthSignUp" method="post">
       <div class="form-group">

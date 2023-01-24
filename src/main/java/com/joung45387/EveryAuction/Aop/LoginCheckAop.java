@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.validation.support.BindingAwareModelMap;
@@ -19,12 +20,15 @@ import java.lang.reflect.Method;
 public class LoginCheckAop {
     @Pointcut("execution(* com.joung45387.EveryAuction.Controller..*.*(..))")
     private void cut() {}
+    @Value("${myInfo.serverName}")
+    private String serverName;
 
     @Around("cut()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
 
         PrincipalDetails principalDetails = null;
         Model model = null;
+
 
         //메서드에 들어가는 매개변수 배열을 읽어옴
         Object[] args = joinPoint.getArgs();
@@ -36,6 +40,7 @@ public class LoginCheckAop {
                 model = (Model) obj;
             }
         }
+        model.addAttribute("serverName", serverName);
         if(model!=null){
             model.addAttribute("login", principalDetails != null);
         }

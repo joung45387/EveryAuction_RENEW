@@ -15,6 +15,8 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class PrincipleOauth2UserService extends DefaultOAuth2UserService {
@@ -42,14 +44,14 @@ public class PrincipleOauth2UserService extends DefaultOAuth2UserService {
         String providerId = oAuth2UserInfo.getProviderId();
         String username = provider + "_"+ providerId;
         String password = bCryptPasswordEncoder.encode("every_auction");
-        //String name = oAuth2UserInfo.getName();
+        String name = UUID.randomUUID().toString().substring(0,8);
         User user = userRepository.findByUserName(username);
         if(user == null){
             user = User
                     .builder()
                     .username(username)
                     .password(password)
-                    //.name(name)
+                    .name(name)
                     .provider(provider)
                     .build();
             userRepository.saveUser(user);

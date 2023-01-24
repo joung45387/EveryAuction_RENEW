@@ -21,13 +21,10 @@ import java.util.stream.Collectors;
 public class MainController {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
-    @Value("${myInfo.serverName}")
-    private String servername;
     @GetMapping("/")
     public String oauthLogin(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model){
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
-        model.addAttribute("serverName", servername);
         return "main";
     }
 }

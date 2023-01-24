@@ -44,7 +44,7 @@
 </head>
 <body>
 
-<div th:replace="fragments/header.html :: fragment-header(${login})"></div>
+<div th:replace="fragments/header.html :: fragment-header(${login}, ${serverName})"></div>
 
 <main>
 
@@ -52,7 +52,6 @@
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">Every Auction</h1>
-        <h1 th:text="${serverName}"></h1>
         <p class="lead text-muted">누구나 쉽게 경매할수 있는 중고 거래 플랫폼입니다.</p>
         <p class="lead text-muted">판매할 물건을 업로드 하고 1대1 채팅으로 물건을 거래하세요!</p>
       </div>

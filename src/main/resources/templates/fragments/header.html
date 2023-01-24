@@ -6,7 +6,7 @@
   <title>Title</title>
 </head>
 <body>
-<main th:fragment="fragment-header(login)" class="form-signin w-100 m-auto">
+<main th:fragment="fragment-header(login, serverName)" class="form-signin w-100 m-auto">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
@@ -33,7 +33,7 @@
         <li class="nav-item"><a href="/itemupload" class="nav-link active" aria-current="page">상품 업로드</a></li>
         <li class="nav-item"><a href="/purchaserecord" class="nav-link">구매목록</a></li>
         <li class="nav-item"><a href="/salesrecord" class="nav-link">판매목록</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link" th:text="${serverName}"></a></li>
         <li class="nav-item">
           <a th:if="${login}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> <!--href="/logout"-->
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">

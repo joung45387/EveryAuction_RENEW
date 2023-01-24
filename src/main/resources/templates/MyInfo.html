@@ -28,7 +28,7 @@
 <body>
 <div >
   <div class="container">
-    <div th:replace="fragments/header.html :: fragment-header(${login})"></div>
+    <div th:replace="fragments/header.html :: fragment-header(${login}, ${serverName})"></div>
     <form role="form" action="/#" method="post">
       <div class="form-group">
         <label>UserName</label>
