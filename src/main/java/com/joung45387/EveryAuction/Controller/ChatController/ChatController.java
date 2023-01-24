@@ -2,7 +2,9 @@ package com.joung45387.EveryAuction.Controller.ChatController;
 
 import com.joung45387.EveryAuction.Domain.DTO.ChatDTO;
 import com.joung45387.EveryAuction.Domain.Model.Chat;
+import com.joung45387.EveryAuction.Domain.Model.Item;
 import com.joung45387.EveryAuction.Repository.ChatRepository.ChatRepository;
+import com.joung45387.EveryAuction.Repository.ItemRepository.ItemRepository;
 import com.joung45387.EveryAuction.Security.Auth.PrincipalDetails;
 import com.joung45387.EveryAuction.Service.Redis.RedisPubService;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +23,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ChatController {
     private final ChatRepository chatRepository;
+    private final ItemRepository itemRepository;
     private final SimpMessageSendingOperations simpMessageSendingOperations;
     private final RedisPubService redisPubService;
     @GetMapping("/chat/{productId}")
     public String SearchbidComplete(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                     Model model,
                                     @PathVariable("productId") Long id){
-
+        Item item = itemRepository.findSellerAndBuyerByItemId(id);
+        if(item.getBuyer() == null || (!item.getSeller().getUsername().equals(principalDetails.getUsername()) && !item.getBuyer().getUsername().equals(principalDetails.getUsername()))){
+            return "PermissionDenied";
+        }
         List<Chat> chats = chatRepository.findByItemOneQuery(id);
         model.addAttribute("allChat", chats);
         model.addAttribute("productId", id);

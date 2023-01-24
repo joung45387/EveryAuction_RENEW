@@ -24,7 +24,7 @@ public class TopicSubscriptionInterceptor implements ChannelInterceptor {
     @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
         StompHeaderAccessor headerAccessor= StompHeaderAccessor.wrap(message);
-        if (StompCommand.SUBSCRIBE.equals(headerAccessor.getCommand()) && headerAccessor.getDestination().split("/")[2].equals("itemChat")) {
+        if (StompCommand.SUBSCRIBE.equals(headerAccessor.getCommand()) && headerAccessor.getDestination().split("/")[1].equals("topic")) {
             Principal userPrincipal = headerAccessor.getUser();
             if (!validateSubscription(userPrincipal, headerAccessor.getDestination())) {
                 throw new IllegalArgumentException("No permission for this topic");

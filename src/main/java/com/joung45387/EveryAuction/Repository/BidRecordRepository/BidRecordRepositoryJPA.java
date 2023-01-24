@@ -75,7 +75,7 @@ public class BidRecordRepositoryJPA implements BidRecordRepository{
     @Override
     public List<Item> mySales(Long id){
         User user = userRepository.findByUserId(id);
-        List<Item> sellerItem = entityManager.createQuery("select i from Item i join fetch i.buyer where i.seller=:seller and i.endTime<now()", Item.class)
+        List<Item> sellerItem = entityManager.createQuery("select i from Item i left join fetch i.buyer where i.seller=:seller and i.endTime<now()", Item.class)
                 .setParameter("seller", user)
                 .getResultList();
         return sellerItem;

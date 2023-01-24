@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -22,7 +23,6 @@ public class ItemRepositoryJPA implements ItemRepository{
 
     @Override
     public Item saveItem(ItemDTO itemDTO, User user, String thumnailImageLink) {
-        System.out.println("1111");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         Item item = Item.builder()
                 .title(itemDTO.getTitle())
@@ -53,7 +53,7 @@ public class ItemRepositoryJPA implements ItemRepository{
 
     @Override
     public Item findSellerAndBuyerByItemId(Long id) {
-        Item item = entityManager.createQuery("select i from Item i join fetch i.seller  join fetch i.buyer where i.id=:id", Item.class)
+        Item item = entityManager.createQuery("select i from Item i join fetch i.seller left join fetch i.buyer where i.id=:id", Item.class)
                 .setParameter("id", id)
                 .getSingleResult();
         return item;
@@ -72,7 +72,8 @@ public class ItemRepositoryJPA implements ItemRepository{
 
     @Override
     public List<Item> findAll(){
-        TypedQuery<Item> query = entityManager.createQuery("select i from Item i where i.endTime>now()", Item.class);
+        TypedQuery<Item> query = entityManager.createQuery("select i from Item i where i.endTime>:now", Item.class)
+                .setParameter("now", LocalDateTime.now(ZoneId.of("Asia/Seoul")));
         return query.getResultList();
     }
 }
