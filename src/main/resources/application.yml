@@ -4,6 +4,8 @@ spring:
 
 
 logging:
+  file:
+    path: /home/ubuntu/spring
   level:
     org.hibernate.SQL: debug
 
