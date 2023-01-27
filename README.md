@@ -33,8 +33,7 @@ http://everyauction.bu.to/
 * GitHub Actions
 
 # 시스템 아키텍처
-<img src="https://user-images.githubusercontent.com/45916379/214310735-af91fc71-671a-403d-91c0-b260c639eea0.png">
-
+![EveryAuctionArchitecture](https://user-images.githubusercontent.com/45916379/215137845-8e82b7af-d680-43ad-a36e-6629af80f63a.png)
 ## ERD
 <img src="https://user-images.githubusercontent.com/45916379/214311717-eb381af7-cd75-42a4-82a5-833ceaef8558.png">
 
