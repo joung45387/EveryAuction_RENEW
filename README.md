@@ -3,7 +3,7 @@
 
 판매할 물건을 업로드 하고 1대1 채팅으로 물건을 거래하세요!
 
-http://everyauction.bu.to/
+http://54.180.119.91/
 
 ※본 프로젝트는 https://github.com/joung45387/everyAuction 의 개선버전이며, 처음부터 재설계한 프로젝트입니다.
 
