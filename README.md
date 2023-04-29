@@ -90,7 +90,7 @@ http://54.180.119.91/
 <br>
 
 ## 로드밸런싱 Scaleout 트래픽 분산 효과
-JMETER를 이용하여 TPS를 계산하였습니다.
+JMETER를 이용하여 TPS를 계산하였습니다.<br><br>
 단일 서버에서 운용했을때 TPS : 501.17
 <img src='https://user-images.githubusercontent.com/45916379/235286801-b342172a-364d-46c5-815c-4e56b65787ce.png'></img>
 
