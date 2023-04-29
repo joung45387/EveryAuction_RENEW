@@ -90,8 +90,15 @@ http://54.180.119.91/
 <br>
 
 ## 로드밸런싱 Scaleout 트래픽 분산 효과
-|<img src='https://user-images.githubusercontent.com/45916379/235286801-b342172a-364d-46c5-815c-4e56b65787ce.png'></img>|
-|단일 서버에서 운용했을때|
+JMETER를 이용하여 TPS를 계산하였습니다.
+단일 서버에서 운용했을때 TPS : 501.17
+<img src='https://user-images.githubusercontent.com/45916379/235286801-b342172a-364d-46c5-815c-4e56b65787ce.png'></img>
+
+NGINX 로드밸런싱으로 같은 성능의 서버 2대를 이용해 운용했을때 TPS : 774.79
+<img src='https://user-images.githubusercontent.com/45916379/235287019-7a9c920a-92bb-4c57-89f4-c5ffb6569fa6.png'></img>
+<br>
+결론 : 약 1.5배의 성능향상의 효과를 얻을 수 있었습니다.
+
 
 ## 개발 기간
 2023.1.4 ~ 2023.1.22
