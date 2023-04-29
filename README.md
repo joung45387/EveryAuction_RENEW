@@ -88,8 +88,9 @@ http://54.180.119.91/
   또한 웹 지식을 가지고 있는 사용자가 악의적인 목적을 가지고 다른사람의 채팅을 볼 가능성이 있기 때문에 Handshaking 후 웹소켓에 구독할 때 ChannelInterceptor를 이용하여 권한을 가지고 있는 유저인지 체크 후 채팅을 할수 있도록 구현하였습니다.
 <br>
 <br>
-## Scaleout 방식의 트래픽 분산 효과
-|![image](https://user-images.githubusercontent.com/45916379/235286734-4a8605b2-57f6-4a09-927c-0b00f6bc6b37.png)|
+
+## 로드밸런싱 Scaleout 트래픽 분산 효과
+|<img src='https://user-images.githubusercontent.com/45916379/235286801-b342172a-364d-46c5-815c-4e56b65787ce.png'></img>|
 |단일 서버에서 운용했을때|
 
 ## 개발 기간
