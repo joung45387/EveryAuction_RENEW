@@ -40,8 +40,10 @@ public class LoginCheckAop {
                 model = (Model) obj;
             }
         }
-        model.addAttribute("serverName", serverName);
+
+
         if(model!=null){
+            model.addAttribute("serverName", serverName);
             model.addAttribute("login", principalDetails != null);
         }
         if(principalDetails != null && principalDetails.getUser().getAddress() == null && !joinPoint.getSignature().toString().contains("oauthSignUp")){
