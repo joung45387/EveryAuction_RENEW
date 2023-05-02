@@ -18,8 +18,13 @@ public class ImageService {
         BufferedImage readImage = ImageIO.read(inputStream);
         int w = readImage.getWidth();
         int h = readImage.getHeight();
-        BufferedImage tmpImage = Scalr.crop(readImage, (w-width)/2, (h-height)/2, width, height);
-        BufferedImage thumbImage = Scalr.resize(tmpImage, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 178);
+        BufferedImage thumbImage;
+        try{
+            BufferedImage tmpImage = Scalr.crop(readImage, (w-width)/2, (h-height)/2, width, height);
+            thumbImage = Scalr.resize(tmpImage, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 178);
+        }catch (Exception e){
+            thumbImage = readImage;
+        }
         inputStream.close();
         return thumbImage;
     }
