@@ -26,7 +26,7 @@ public class ItemService {
         if(user == null){
             userName = "";
         }else {
-            userName = user.getName();
+            userName = user.getUsername();
         }
         List<Boolean> collect = comments.stream().map(c -> c.getUser().getUsername().equals(userName)).collect(Collectors.toList());
         model.addAttribute("item", item);
