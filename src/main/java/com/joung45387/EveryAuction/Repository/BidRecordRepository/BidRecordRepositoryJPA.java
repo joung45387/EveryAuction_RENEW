@@ -16,6 +16,7 @@ import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +32,7 @@ public class BidRecordRepositoryJPA implements BidRecordRepository{
     public BidRecord saveBidRecord(User user, Item item, int price) {
         BidRecord bidRecord = BidRecord.builder()
                 .bidPrice(price)
-                .bidTime(LocalDateTime.now(ZoneId.of("Asia/Seoul")))
+                .bidTime(LocalDateTime.now(ZoneOffset.UTC))
                 .bidUser(user)
                 .item(item)
                 .build();
@@ -75,9 +76,13 @@ public class BidRecordRepositoryJPA implements BidRecordRepository{
     @Override
     public List<Item> mySales(Long id){
         User user = userRepository.findByUserId(id);
-        List<Item> sellerItem = entityManager.createQuery("select i from Item i left join fetch i.buyer where i.seller=:seller and i.endTime<now()", Item.class)
+        List<Item> sellerItem = entityManager.createQuery("select i from Item i where i.seller=:seller and i.endTime<now()", Item.class)
                 .setParameter("seller", user)
                 .getResultList();
+//        List<Item> sellerItem = entityManager.createQuery("select i from Item i left join fetch i.buyer where i.seller=:seller and i.endTime<:now", Item.class)
+//                .setParameter("seller", user)
+//                .setParameter("now", LocalDateTime.now(ZoneId.of("Asia/Seoul")))
+//                .getResultList();
         return sellerItem;
     }
 }

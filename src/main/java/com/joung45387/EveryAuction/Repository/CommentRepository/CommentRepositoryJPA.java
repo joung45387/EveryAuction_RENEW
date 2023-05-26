@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.List;
 
 @Repository
@@ -24,7 +25,7 @@ public class CommentRepositoryJPA implements CommentRepository{
                 .item(item)
                 .user(user)
                 .content(content)
-                .uploadTime(LocalDateTime.now(ZoneId.of("Asia/Seoul")))
+                .uploadTime(LocalDateTime.now(ZoneOffset.UTC))
                 .build();
         entityManager.persist(comment);
         return comment;

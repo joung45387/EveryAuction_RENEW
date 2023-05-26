@@ -33,6 +33,7 @@ public class ItemRepositoryJPA implements ItemRepository{
                 .itemInformation(itemDTO.getContent())
                 .seller(user)
                 .build();
+        System.out.println(item.getEndTime());
         entityManager.persist(item);
         return item;
     }
@@ -72,8 +73,7 @@ public class ItemRepositoryJPA implements ItemRepository{
 
     @Override
     public List<Item> findAll(){
-        TypedQuery<Item> query = entityManager.createQuery("select i from Item i where i.endTime>:now", Item.class)
-                .setParameter("now", LocalDateTime.now(ZoneId.of("Asia/Seoul")));
+        TypedQuery<Item> query = entityManager.createQuery("select i from Item i where i.endTime>now()", Item.class);
         return query.getResultList();
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.List;
 
 @Repository
@@ -45,7 +46,7 @@ public class ChatRepositoryJPA implements ChatRepository{
                 .sender(user)
                 .text(chatDTO.getText())
                 .item(item)
-                .chatTime(LocalDateTime.now(ZoneId.of("Asia/Seoul")))
+                .chatTime(LocalDateTime.now(ZoneOffset.UTC))
                 .build();
         entityManager.persist(chat);
         return chat;

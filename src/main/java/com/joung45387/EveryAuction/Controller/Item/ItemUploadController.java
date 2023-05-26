@@ -41,6 +41,7 @@ public class ItemUploadController {
                                      ItemDTO itemDTO,
                                      @RequestParam MultipartFile[] files) throws IOException {
         String thumnailLink = "";
+
         if(!files[0].isEmpty()){
             BufferedImage thumnail = imageService.makeThumbnail(files[0], 600, 300);
             ByteArrayOutputStream os = new ByteArrayOutputStream();
