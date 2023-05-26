@@ -68,7 +68,7 @@ public class ItemController {
         SimpleMessageDTO simpleMessageDTO = new SimpleMessageDTO();
         simpleMessageDTO.setId(id);
         simpleMessageDTO.setText(cost);
-        simpMessageSendingOperations.convertAndSend("/itemPrice/"+id, simpleMessageDTO);
+        simpMessageSendingOperations.convertAndSend("/queue/"+id, simpleMessageDTO);
         return "redirect:/item/"+id;
     }
 

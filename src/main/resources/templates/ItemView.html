@@ -28,7 +28,7 @@
         stompClient.connect({}, onConnected, onError);
         function onConnected() {
             console.log("sucess");
-            stompClient.subscribe('/itemPrice/[[${item.id}]]', function (e) {
+            stompClient.subscribe('/queue/[[${item.id}]]', function (e) {
                 document.getElementById('id[[${item.id}]]').innerText = "현재가: "+e.body;
             });
         }
