@@ -11,6 +11,7 @@ import com.joung45387.EveryAuction.Service.Redis.RedisPubService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,7 @@ public class ItemController {
     private final ItemRepository itemRepository;
     private final ItemService itemService;
     private final BidRecordRepository bidRecordRepository;
+    private final SimpMessageSendingOperations simpMessageSendingOperations;
     private final CommentRepository commentRepository;
     private final RedisPubService redisPubService;
 
@@ -66,7 +68,7 @@ public class ItemController {
         SimpleMessageDTO simpleMessageDTO = new SimpleMessageDTO();
         simpleMessageDTO.setId(id);
         simpleMessageDTO.setText(cost);
-        redisPubService.sendPrice(simpleMessageDTO);
+        simpMessageSendingOperations.convertAndSend("/topic/itemPrice"+id, simpleMessageDTO);
         return "redirect:/item/"+id;
     }
 

@@ -31,6 +31,7 @@ public class ChatController {
                                     Model model,
                                     @PathVariable("productId") Long id){
         Item item = itemRepository.findSellerAndBuyerByItemId(id);
+
         if(item.getBuyer() == null || (!item.getSeller().getUsername().equals(principalDetails.getUsername()) && !item.getBuyer().getUsername().equals(principalDetails.getUsername()))){
             return "PermissionDenied";
         }

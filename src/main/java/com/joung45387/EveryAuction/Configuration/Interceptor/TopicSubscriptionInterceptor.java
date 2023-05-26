@@ -41,7 +41,7 @@ public class TopicSubscriptionInterceptor implements ChannelInterceptor {
         String name = principal.getName();
         String itemId = topicDestination.split("/")[2];
         Item item = itemRepository.findSellerAndBuyerByItemId(Long.parseLong(itemId));
-        if(name.equals(item.getSeller().getUsername()) || name.equals(item.getBuyer().getUsername())){
+        if(name.equals(item.getSeller().getName()) || name.equals(item.getBuyer().getName())){
             return true;
         }
         else {
