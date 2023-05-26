@@ -29,7 +29,7 @@
         function onConnected() {
             console.log("sucess");
             stompClient.subscribe('/queue/[[${item.id}]]', function (e) {
-                document.getElementById('id[[${item.id}]]').innerText = "현재가: "+e.body;
+                document.getElementById('id[[${item.id}]]').innerText = "현재가: "+e.body.get("text");
             });
         }
         function onError(error) {
