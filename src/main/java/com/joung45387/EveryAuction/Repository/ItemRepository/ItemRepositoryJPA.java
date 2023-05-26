@@ -73,7 +73,8 @@ public class ItemRepositoryJPA implements ItemRepository{
 
     @Override
     public List<Item> findAll(){
-        TypedQuery<Item> query = entityManager.createQuery("select i from Item i where i.endTime>now()", Item.class);
+        TypedQuery<Item> query = entityManager.createQuery("select i from Item i where i.endTime> :now", Item.class)
+                .setParameter("now", LocalDateTime.now(ZoneId.of("Asia/Seoul")));
         return query.getResultList();
     }
 }

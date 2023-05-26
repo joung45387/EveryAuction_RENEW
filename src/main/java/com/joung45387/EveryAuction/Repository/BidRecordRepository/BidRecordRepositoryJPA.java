@@ -56,8 +56,9 @@ public class BidRecordRepositoryJPA implements BidRecordRepository{
         Query nativeQuery = entityManager.createNativeQuery("select i.* from bid_record b\n" +
                 "join item i on b.item_id = i.id\n" +
                 "where b.bid_user_id = "+id+"\n" +
-                "and i.end_time < now() \n"+
-                "group by b.item_id");
+                "and i.end_time < :now \n"+
+                "group by b.item_id")
+                .setParameter("now", LocalDateTime.now(ZoneId.of("Asia/Seoul")));
         List<Object[]> resultList = nativeQuery.getResultList();
         List<PurchaseInfoDTO> purchaseInfoDTOStream = resultList.stream().map(o -> new PurchaseInfoDTO(
                 ((BigInteger) o[0]).longValue(),
@@ -76,8 +77,9 @@ public class BidRecordRepositoryJPA implements BidRecordRepository{
     @Override
     public List<Item> mySales(Long id){
         User user = userRepository.findByUserId(id);
-        List<Item> sellerItem = entityManager.createQuery("select i from Item i where i.seller=:seller and i.endTime<now()", Item.class)
+        List<Item> sellerItem = entityManager.createQuery("select i from Item i where i.seller=:seller and i.endTime<:now", Item.class)
                 .setParameter("seller", user)
+                .setParameter("now", LocalDateTime.now(ZoneId.of("Asia/Seoul")))
                 .getResultList();
 //        List<Item> sellerItem = entityManager.createQuery("select i from Item i left join fetch i.buyer where i.seller=:seller and i.endTime<:now", Item.class)
 //                .setParameter("seller", user)
