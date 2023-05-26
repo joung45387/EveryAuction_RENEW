@@ -26,7 +26,7 @@ public class ItemRepositoryJPA implements ItemRepository{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         Item item = Item.builder()
                 .title(itemDTO.getTitle())
-                .endTime(LocalDateTime.parse(itemDTO.getEndTime(), formatter).minusHours(9))
+                .endTime(LocalDateTime.parse(itemDTO.getEndTime(), formatter))
                 .thumbnailImage(thumnailImageLink)
                 .startPrice(itemDTO.getStartPrice())
                 .currentPrice(itemDTO.getStartPrice())

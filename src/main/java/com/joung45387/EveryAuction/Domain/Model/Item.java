@@ -26,6 +26,7 @@ public class Item {
     private List<Image> itemImages;
     private String itemInformation;
     private String title;
+    @Setter
     private LocalDateTime endTime;
     private int currentPrice;
     @ManyToOne(fetch = FetchType.LAZY)
