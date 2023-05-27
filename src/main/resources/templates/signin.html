@@ -58,6 +58,7 @@
                 </div>-->
               </div>
             </form>
+            <div style="color: red" th:if="${error}" th:text="${exception}"> </div>
 
               <a class="social-button" id="google-connect" href="oauth2/authorization/google">
                 <span>구글 로그인</span>

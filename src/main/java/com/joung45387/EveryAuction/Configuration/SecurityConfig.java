@@ -13,6 +13,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -20,6 +21,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final PrincipleOauth2UserService principleOauth2UserService;
+    private final AuthenticationFailureHandler customFailureHandler;
 
     @Bean
     public BCryptPasswordEncoder cryptPW(){
@@ -41,6 +43,7 @@ public class SecurityConfig {
                 .formLogin()
                 .loginPage("/signin")
                 .loginProcessingUrl("/login")
+                .failureHandler(customFailureHandler)
                 .defaultSuccessUrl("/", true)
                 .and()
                 .oauth2Login()

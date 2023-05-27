@@ -27,15 +27,13 @@ public class TopicSubscriptionInterceptor implements ChannelInterceptor {
         if (StompCommand.SUBSCRIBE.equals(headerAccessor.getCommand()) && headerAccessor.getDestination().split("/")[1].equals("topic")) {
             Principal userPrincipal = headerAccessor.getUser();
             if (!validateSubscription(userPrincipal, headerAccessor.getDestination())) {
-                throw new IllegalArgumentException("No permission for this topic");
+                throw new IllegalArgumentException("No Permission");
             }
         }
         return message;
     }
-    //subscribe 인증 로직
     private boolean validateSubscription(Principal principal, String topicDestination) {
         if (principal == null) {
-            // Unauthenticated user
             return false;
         }
         String name = principal.getName();
