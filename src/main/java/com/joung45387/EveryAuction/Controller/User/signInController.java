@@ -15,7 +15,6 @@ public class signInController {
                          @RequestParam(value = "error", required = false)String error,
                          @RequestParam(value = "exception", required = false)String exception){
         if(principalDetails==null){
-            System.out.println(error+" "+exception);
             model.addAttribute("error", error);
             model.addAttribute("exception", exception);
             return "signin";
