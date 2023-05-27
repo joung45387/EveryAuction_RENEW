@@ -42,8 +42,4 @@ public class UserRepositoryJPA implements UserRepository{
         entityManager.persist(user);
     }
 
-    @Override
-    public boolean isAlreadyUserName(String userNmae) {
-        return findByUserName(userNmae) != null;
-    }
 }

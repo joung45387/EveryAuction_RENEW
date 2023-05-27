@@ -12,6 +12,4 @@ public interface UserRepository {
 
     public User findByUserName(String userName);
     public void saveUser(User user);
-
-    public boolean isAlreadyUserName(String userNmae);
 }

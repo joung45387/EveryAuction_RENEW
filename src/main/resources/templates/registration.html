@@ -44,7 +44,7 @@
                    placeholder="비밀번호를 입력하세요">
         </div>
         <div class="COL-XS-3">
-            <label>이름</label>
+            <label>닉네임</label>
             <input type="text" name="name" class="form-control"
                    placeholder="이름을 입력하세요">
         </div>
@@ -59,6 +59,7 @@
                    placeholder="주소를 입력하세요">
         </div>
         <div class="col text-center">
+            <div style="color: red" th:if="${error}" th:text="${error}"></div>
             <button type="submit" class="btn btn-success btn-lg px-3" style="background-color: #01d28e; border-color: #01d28e">회원가입</button>
         </div></form>
     <br/>
